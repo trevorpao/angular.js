@@ -1,3 +1,206 @@
+<a name="1.2.0-rc1"></a>
+# 1.2.0-rc1 spooky-giraffe (2013-08-12)
+
+
+## Bug Fixes
+
+- **$compile:**
+  - correct controller instantiation for async directives
+  ([c173ca41](https://github.com/angular/angular.js/commit/c173ca412878d537b18df01f39e400ea48a4b398),
+   [#3493](https://github.com/angular/angular.js/issues/3493),
+   [#3482](https://github.com/angular/angular.js/issues/3482),
+   [#3537](https://github.com/angular/angular.js/issues/3537),
+   [#3540](https://github.com/angular/angular.js/issues/3540))
+  - always instantiate controllers before pre-link fns run
+  ([5c560117](https://github.com/angular/angular.js/commit/5c560117425e7b3f7270389274476e843d6f69ec),
+   [#3493](https://github.com/angular/angular.js/issues/3493),
+   [#3482](https://github.com/angular/angular.js/issues/3482),
+   [#3514](https://github.com/angular/angular.js/issues/3514))
+  - always instantiate controllers in parent->child order
+  ([45f9f623](https://github.com/angular/angular.js/commit/45f9f62367221b2aa097ba1d87d744e50140ddc7),
+   [#2738](https://github.com/angular/angular.js/issues/2738))
+  - don't check attr.specified on non-ie7
+  ([f9ea69f6](https://github.com/angular/angular.js/commit/f9ea69f6567c22ff328fd1f7b07847883757bfa6),
+   [#3231](https://github.com/angular/angular.js/issues/3231),
+   [#2160](https://github.com/angular/angular.js/issues/2160))
+  - allow `data:` image URIs in `img[src]` bindings
+  ([3e39ac7e](https://github.com/angular/angular.js/commit/3e39ac7e1b10d4812a44dad2f959a93361cd823b))
+  - empty normalized href url should pass sanitation check
+  ([fc8c9baa](https://github.com/angular/angular.js/commit/fc8c9baa399c33956133cdb6892fc7007430d299),
+   [#2219](https://github.com/angular/angular.js/issues/2219))
+  - prevent infinite loop w/ replace+transclude directives
+  ([69f42b76](https://github.com/angular/angular.js/commit/69f42b76548d00f52b231ec91150e4f0b008c730),
+   [#2155](https://github.com/angular/angular.js/issues/2155))
+  - reject multi-expression interpolations for `src` attribute
+  ([38deedd6](https://github.com/angular/angular.js/commit/38deedd6e3d806eb8262bb43f26d47245f6c2739))
+  - disallow interpolations for DOM event handlers
+  ([39841f2e](https://github.com/angular/angular.js/commit/39841f2ec9b17b3b2920fd1eb548d444251f4f56))
+  - sanitize values bound to `img[src]`
+  ([1adf29af](https://github.com/angular/angular.js/commit/1adf29af13890d61286840177607edd552a9df97))
+  - support multi-element group over text nodes
+  ([b28f9694](https://github.com/angular/angular.js/commit/b28f96949ac477b1fe43c81df7cedc21c7ab184c))
+  - correct component transclusion on compilation root.
+  ([15e1a29c](https://github.com/angular/angular.js/commit/15e1a29cd08993b599f390e83a249ec17f753972))
+
+- **$http:**
+  - allow interceptors to completely override headers
+  ([514dc0eb](https://github.com/angular/angular.js/commit/514dc0eb16a8fe3fa7c44094d743714f73754321),
+   [#2770](https://github.com/angular/angular.js/issues/2770))
+  - treat headers as case-insensitive when overriding defaults
+  ([53359d54](https://github.com/angular/angular.js/commit/53359d549e364759d5b382c229f7d326799bf418))
+
+- **$location:**
+  - don't initialize url hash in hashbang mode unnecessarily
+  ([d4d34aba](https://github.com/angular/angular.js/commit/d4d34aba6efbd98050235f5b264899bb788117df))
+  - prevent infinite digest error due to IE bug
+  ([dca23173](https://github.com/angular/angular.js/commit/dca23173e25a32cb740245ca7f7b01a84805f43f),
+   [#2802](https://github.com/angular/angular.js/issues/2802))
+  - in html5 mode, default to / for the url base if no base[href]
+  ([aef09800](https://github.com/angular/angular.js/commit/aef098006302689d2d75673be828e31903ee7c3c),
+   [#2762](https://github.com/angular/angular.js/issues/2762))
+  - fix parameter handling on search()
+  ([705c9d95](https://github.com/angular/angular.js/commit/705c9d95bc3157547ac6008d2f0a6a0c0e0ca60a))
+
+- **$parse:**
+  - unwrap promise when setting a field
+  ([61906d35](https://github.com/angular/angular.js/commit/61906d3517428b6d52d3284b8d26d1a46e01dad7),
+   [#1827](https://github.com/angular/angular.js/issues/1827))
+  - disallow access to Function constructor
+  ([5349b200](https://github.com/angular/angular.js/commit/5349b20097dc5cdff0216ee219ac5f6e6ef8c219))
+
+- **$q:** call `reject()` even if `$exceptionHandler` rethrows
+  ([664526d6](https://github.com/angular/angular.js/commit/664526d69c927370c93a06745ca38de7cd03a7be))
+
+- **$resource:** check whether response matches action.isArray
+  ([a644ca7b](https://github.com/angular/angular.js/commit/a644ca7b4e6ba84a467bcabed8f99386eda7fb14),
+   [#2255](https://github.com/angular/angular.js/issues/2255))
+
+- **$sanitize:** match URI schemes case-insensitively
+  ([7fef06fe](https://github.com/angular/angular.js/commit/7fef06fef9b6af4436f9fed10bd29d0a63707614),
+   [#3210](https://github.com/angular/angular.js/issues/3210))
+
+- **Scope:**
+  - ensure that isolate scopes use the main evalAsync queue
+  ([3967f5f7](https://github.com/angular/angular.js/commit/3967f5f7d6c8aa7b41a5352b12f457e2fbaa251a))
+  - watches can now be safely unregistered inside watch handlers
+  ([8bd6619b](https://github.com/angular/angular.js/commit/8bd6619b7efa485b020fec96c76047e480469871),
+   [#2915](https://github.com/angular/angular.js/issues/2915))
+
+- **Misc:**
+  - detect transition/animation on older Android browsers
+  ([ef5bc6c7](https://github.com/angular/angular.js/commit/ef5bc6c7c3336a64bae64fe9739cb1789907c906))
+  - handle duplicate params in parseKeyValue/toKeyValue
+  ([80739409](https://github.com/angular/angular.js/commit/807394095b991357225a03d5fed81fea5c9a1abe))
+  - don't crash on invalid query parameters
+  ([8264d080](https://github.com/angular/angular.js/commit/8264d08085adc2ab57f6598b9fc9f6e263c8b4f3))
+  - change angular.copy to correctly clone RegExp
+  ([f80730f4](https://github.com/angular/angular.js/commit/f80730f497cb1ecb78a814f01df79b69223ad633),
+   [#3473](https://github.com/angular/angular.js/issues/3473),
+   [#3474](https://github.com/angular/angular.js/issues/3474))
+  - angular.equals now supports for regular expressions
+  ([724819e3](https://github.com/angular/angular.js/commit/724819e3cfd8aeda1f724fb527db2b57494be9b7),
+   [#2685](https://github.com/angular/angular.js/issues/2685))
+  - angular.equals should not match keys defined in the prototype chain
+  ([7829c50f](https://github.com/angular/angular.js/commit/7829c50f9e89e779980f6d60a397aedfc7eaec61))
+  - angular.equals should not consider {} and [] to be equivalent
+  ([1dcafd18](https://github.com/angular/angular.js/commit/1dcafd18afed4465ee13db91cedc8fecc3aa2c96))
+  - angular.bootstrap should throw an error when bootstrapping a bootstrapped element
+  ([3ee744cc](https://github.com/angular/angular.js/commit/3ee744cc63a24b127d6a5f632934bb6ed2de275a))
+  - change css wrapping in grunt to prepend styles to the top of the head tag
+  ([fbad068a](https://github.com/angular/angular.js/commit/fbad068aeb229fd3dd2a3004879584c728fed735))
+
+- **jqLite:**
+  - properly detect unsupported calls for on()/off()
+  ([3824e400](https://github.com/angular/angular.js/commit/3824e40011df1c0fdf5964d78776f1a12a29c144),
+   [4f5dfbc3](https://github.com/angular/angular.js/commit/4f5dfbc362d9683177708ebcc00c98cf594d1287),
+   [#3501](https://github.com/angular/angular.js/issues/3501))
+  - return array from multi select in val()
+  ([306a6134](https://github.com/angular/angular.js/commit/306a613440175c7fd61d1d6eb249d1e53a46322e))
+  - forgive unregistration of a non-registered handler
+  ([ab59cc6c](https://github.com/angular/angular.js/commit/ab59cc6c44705b1244a77eba999d736f9eb3c6ae))
+  - support space-separated events in off
+  ([bdd4e982](https://github.com/angular/angular.js/commit/bdd4e982b7fee9811b40b545c21a74711686875c),
+   [#3256](https://github.com/angular/angular.js/issues/3256))
+  - prepend array in correct order
+  ([fd87eb0c](https://github.com/angular/angular.js/commit/fd87eb0ca5e14f213d8b31280d444dbc29c20c50))
+  - allow override of jqLite.triggerHandler event object
+  ([0cac8729](https://github.com/angular/angular.js/commit/0cac8729fb3824ebb07cee84ef78b43900c7e75d))
+  - added optional name arg in removeData
+  ([e1a050e6](https://github.com/angular/angular.js/commit/e1a050e6b26aca4d0e6e7125d3f6c1c8fc1d92cb))
+  - correctly monkey-patch core jQuery methods
+  ([da5f537c](https://github.com/angular/angular.js/commit/da5f537ccdb0a7b4155f13f7a70ca7981ad6f689))
+
+
+- **i18n:** Do not transform arrays into objects
+  ([b3d7a038](https://github.com/angular/angular.js/commit/b3d7a038d774d823ef861b76fb8bfa22e60a3df5))
+
+- **ngMobile/ngTouch:**
+  - emit click event for touchy clicks
+  ([fb7d891d](https://github.com/angular/angular.js/commit/fb7d891dacdcb9f799061d5fbb96cdd2dd912196),
+   [#3219](https://github.com/angular/angular.js/issues/3219),
+   [#3218](https://github.com/angular/angular.js/issues/3218),
+   [#3137](https://github.com/angular/angular.js/issues/3137))
+  - prevent ngClick when item disabled
+  ([e0340243](https://github.com/angular/angular.js/commit/e03402433d2524fd3a74bbfce984f843794996ce),
+   [#3124](https://github.com/angular/angular.js/issues/3124),
+   [#3132](https://github.com/angular/angular.js/issues/3132))
+  - ngClick should prevent unwanted opening of the soft keyboard
+  ([0bbd20f2](https://github.com/angular/angular.js/commit/0bbd20f255b2954b5c41617fe718cf6eca36a972))
+
+- **ngMock:**
+  - keep withCredentials on passThrough
+  ([3079a6f4](https://github.com/angular/angular.js/commit/3079a6f4e097a777414b8c3a8a87b8e1e20b55b5))
+  - keep mock.$log the api in sync with $log
+  ([f274c0a6](https://github.com/angular/angular.js/commit/f274c0a66b28711d3b9cc7b0775e97755dd971e8),
+   [#2343](https://github.com/angular/angular.js/issues/2343))
+
+- **ngScenario:** select().option(val) should prefer exact value match
+  ([22a9b1ac](https://github.com/angular/angular.js/commit/22a9b1ac07f98d07e1e5d71ce961411b5fa9b42d),
+   [#2856](https://github.com/angular/angular.js/issues/2856))
+
+- **Directives:**
+
+  - **ngRepeat:**
+  
+    - handle iteration over identical obj values
+    ([47a2a982](https://github.com/angular/angular.js/commit/47a2a9829f0a847bbee61cd142c43000d73ea98b),
+     [#2787](https://github.com/angular/angular.js/issues/2787),
+     [#2806](https://github.com/angular/angular.js/issues/2806))
+    - support growing over multi-element groups
+     ([4953b497](https://github.com/angular/angular.js/commit/4953b49761a791d9ea74bcbe78769fec15d91083))
+
+  - **ngShowHide:** change the .ng-hide CSS class to use an !important flag
+  ([246c1439](https://github.com/angular/angular.js/commit/246c1439b502b06823650505cbe4a3848b6fa5a3))
+
+  - **ngSubmit:** expose $event to ngSubmit callback
+  ([3371fc25](https://github.com/angular/angular.js/commit/3371fc254a9698eae35bb6f8f1ee9c434ae761e2))
+
+  - **ngValue:** made ngValue to write value attribute to element
+  ([09a1e7af](https://github.com/angular/angular.js/commit/09a1e7af129880cab89a2f709f22a7286f52371e))
+
+  - **ngView:** ensure ngView is terminal and uses its own manual transclusion system
+  ([87405e25](https://github.com/angular/angular.js/commit/87405e25ae935eefd673e70ffd6144a5f455b662))
+
+  - **ngCloak:** hide ngCloak-ed element even when CSS 'display' is set
+  ([3ffddad1](https://github.com/angular/angular.js/commit/3ffddad100e993403d13137387d0685466b46b2b))
+
+  - **input[email]:** fix the email regex to accept TLDs up to 6 characters long
+  ([af731354](https://github.com/angular/angular.js/commit/af731354b0b600f87f15e1573e64a7f7acc70f3d))
+
+  - **form:** pick the right attribute name for ngForm
+  ([0fcd1e3b](https://github.com/angular/angular.js/commit/0fcd1e3b1fa6244d02f08631d9ef81bf79996fab),
+   [#2997](https://github.com/angular/angular.js/issues/2997))
+
+  - **select:** don't support binding to select[multiple]
+  ([d87fa004](https://github.com/angular/angular.js/commit/d87fa0042375b025b98c40bff05e5f42c00af114),
+   [#3230](https://github.com/angular/angular.js/issues/3230))
+
+- **Filters:**
+  - **numberFilter:** always convert scientific notation to decimal
+  ([a13c01a8](https://github.com/angular/angular.js/commit/a13c01a8e48ea4a0d59394eb94f1b12c50cfef61))
+
+
+
 <a name="1.1.5"></a>
 # 1.1.5 triangle-squarification (2013-05-22)
 
