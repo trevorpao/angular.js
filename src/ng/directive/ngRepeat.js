@@ -328,6 +328,7 @@ var ngRepeatDirective = ['$parse', '$animate', function($parse, $animate) {
             if (lastBlockMap.hasOwnProperty(key)) {
               block = lastBlockMap[key];
               $animate.leave(block.elements);
+              dump(block.elements);
               forEach(block.elements, function(element) { element[NG_REMOVED] = true});
               block.scope.$destroy();
             }
@@ -371,6 +372,7 @@ var ngRepeatDirective = ['$parse', '$animate', function($parse, $animate) {
 
             if (!block.startNode) {
               linker(childScope, function(clone) {
+                dump(clone);
                 $animate.enter(clone, null, jqLite(previousNode));
                 previousNode = clone;
                 block.scope = childScope;

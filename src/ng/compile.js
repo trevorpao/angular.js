@@ -809,6 +809,8 @@ function $CompileProvider($provide) {
             compileNode = $compileNode[0];
             replaceWith(jqCollection, jqLite(sliceArgs($template)), compileNode);
 
+            $template.append(document.createComment(' end ' + directiveName + ': ' + templateAttrs[directiveName] + ' '))
+
             childTranscludeFn = compile($template, transcludeFn, terminalPriority,
                                         replaceDirective && replaceDirective.name);
           } else {
@@ -836,7 +838,7 @@ function $CompileProvider($provide) {
             compileNode = $template[0];
 
             if ($template.length != 1 || compileNode.nodeType !== 1) {
-              throw $compileMinErr('tplrt', "Template for directive '{0}' must have exactly one root element. {1}", directiveName, '');
+              throw $compileMinErr('tplrt', "Template for directive '{0}' must have exactly one root element. {1}", directiveName,  templateAttrs[directiveName] +'');
             }
 
             replaceWith(jqCollection, $compileNode, compileNode);
