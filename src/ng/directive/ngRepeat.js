@@ -330,10 +330,15 @@ var ngRepeatDirective = ['$parse', '$animate', function($parse, $animate) {
 
               var elementsToRemove = [];
               var elementToRemove = block.startNode;
-              do {
-                elementsToRemove.push(elementToRemove);
-                elementToRemove = elementToRemove.nextSibling;
-              } while (elementToRemove !== block.endNode);
+              elementsToRemove.push(elementToRemove);
+
+              if (block.startNode !== block.endNode) {
+                do {
+                  elementToRemove = elementToRemove.nextSibling;
+                  if (!elementToRemove) break;
+                  elementsToRemove.push(elementToRemove);
+                } while (elementToRemove !== block.endNode);
+              }
 
               $animate.leave(angular.element(elementsToRemove));
               forEach(elementsToRemove, function(element) { element[NG_REMOVED] = true; });

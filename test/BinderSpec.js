@@ -96,7 +96,9 @@ describe('Binder', function() {
         '<ul>' +
           '<!-- ngRepeat: item in model.items -->' +
           '<li ng-bind="item.a" ng-repeat="item in model.items">A</li>' +
+          '<!-- end ngRepeat: item in model.items -->' +
           '<li ng-bind="item.a" ng-repeat="item in model.items">B</li>' +
+          '<!-- end ngRepeat: item in model.items -->' +
         '</ul>');
 
     items.unshift({a: 'C'});
@@ -105,8 +107,11 @@ describe('Binder', function() {
         '<ul>' +
           '<!-- ngRepeat: item in model.items -->' +
           '<li ng-bind="item.a" ng-repeat="item in model.items">C</li>' +
+          '<!-- end ngRepeat: item in model.items -->' +
           '<li ng-bind="item.a" ng-repeat="item in model.items">A</li>' +
+          '<!-- end ngRepeat: item in model.items -->' +
           '<li ng-bind="item.a" ng-repeat="item in model.items">B</li>' +
+          '<!-- end ngRepeat: item in model.items -->' +
         '</ul>');
 
     items.shift();
@@ -115,7 +120,9 @@ describe('Binder', function() {
         '<ul>' +
           '<!-- ngRepeat: item in model.items -->' +
           '<li ng-bind="item.a" ng-repeat="item in model.items">A</li>' +
+          '<!-- end ngRepeat: item in model.items -->' +
           '<li ng-bind="item.a" ng-repeat="item in model.items">B</li>' +
+          '<!-- end ngRepeat: item in model.items -->' +
         '</ul>');
 
     items.shift();
@@ -134,6 +141,7 @@ describe('Binder', function() {
         '<ul>' +
           '<!-- ngRepeat: item in model.items -->' +
           '<li ng-repeat="item in model.items"><span ng-bind="item.a">A</span></li>' +
+          '<!-- end ngRepeat: item in model.items -->' +
         '</ul>');
   }));
 
@@ -225,11 +233,13 @@ describe('Binder', function() {
             '<ul name="a1" ng-repeat="i in m.item"></ul>'+
             '<ul name="a2" ng-repeat="i in m.item"></ul>'+
           '</div>'+
+          '<!-- end ngRepeat: m in model -->' +
           '<div name="b" ng-repeat="m in model">'+
             '<!-- ngRepeat: i in m.item -->' +
             '<ul name="b1" ng-repeat="i in m.item"></ul>'+
             '<ul name="b2" ng-repeat="i in m.item"></ul>'+
           '</div>' +
+          '<!-- end ngRepeat: m in model -->' +
         '</div>');
   }));
 
@@ -314,7 +324,9 @@ describe('Binder', function() {
        '<div>' +
         '<!-- ngRepeat: i in [0,1] -->' +
         '<div class="o" ng-class-even="\'e\'" ng-class-odd="\'o\'" ng-repeat="i in [0,1]"></div>' +
+        '<!-- end ngRepeat: i in [0,1] -->' +
         '<div class="e" ng-class-even="\'e\'" ng-class-odd="\'o\'" ng-repeat="i in [0,1]"></div>' +
+        '<!-- end ngRepeat: i in [0,1] -->' +
         '</div>');
   }));
 
@@ -420,7 +432,9 @@ describe('Binder', function() {
         '<ul>' +
           '<!-- ngRepeat: (k,v) in {a:0,b:1} -->' +
           '<li ng-bind=\"k + v\" ng-repeat="(k,v) in {a:0,b:1}">a0</li>' +
+          '<!-- end ngRepeat: (k,v) in {a:0,b:1} -->' +
           '<li ng-bind=\"k + v\" ng-repeat="(k,v) in {a:0,b:1}">b1</li>' +
+          '<!-- end ngRepeat: (k,v) in {a:0,b:1} -->' +
         '</ul>');
   }));
 

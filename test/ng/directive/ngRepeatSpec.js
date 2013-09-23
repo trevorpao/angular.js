@@ -613,7 +613,9 @@ describe('ngRepeat', function() {
           '<div>' +
             '<!-- ngRepeat: i in items -->' +
             '<div ng-repeat="i in items" rr="">1|</div>' +
+            '<!-- end ngRepeat: i in items -->' +
             '<div ng-repeat="i in items" rr="">2|</div>' +
+            '<!-- end ngRepeat: i in items -->' +
           '</div>'
       );
     }));
@@ -643,7 +645,9 @@ describe('ngRepeat', function() {
           '<div>' +
               '<!-- ngRepeat: i in items -->' +
               '<div ng-repeat="i in items" rr="">1|</div>' +
+              '<!-- end ngRepeat: i in items -->' +
               '<div ng-repeat="i in items" rr="">2|</div>' +
+              '<!-- end ngRepeat: i in items -->' +
               '</div>'
       );
     }));
