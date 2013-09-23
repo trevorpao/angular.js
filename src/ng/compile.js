@@ -809,8 +809,8 @@ function $CompileProvider($provide) {
             compileNode = $compileNode[0];
             replaceWith(jqCollection, jqLite(sliceArgs($template)), compileNode);
 
-            $template.append(document.createComment(' end ' + directiveName + ': ' + templateAttrs[directiveName] + ' '))
-
+            $template[$template.length] = document.createComment(' end ' + directiveName + ': ' + templateAttrs[directiveName] + ' ');
+            $template.length += 1;
             childTranscludeFn = compile($template, transcludeFn, terminalPriority,
                                         replaceDirective && replaceDirective.name);
           } else {

@@ -883,7 +883,7 @@ describe('ngRepeat', function() {
       $rootScope.values.push(5);
 
       $rootScope.$digest();
-      dump(element);
+      dump(element.find('div')[6]);
       expect(element.find('div').length).toBe(6);
       expect(element.text()).not.toContain('If : 1');
     }));
