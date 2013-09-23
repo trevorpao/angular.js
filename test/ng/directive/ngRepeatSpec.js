@@ -843,27 +843,52 @@ describe('ngRepeat', function() {
     });
   });
 
-  it('should grow multi-node repeater', inject(function($compile, $rootScope) {
-    $rootScope.show = false;
-    $rootScope.books = [
-      {title:'T1', description: 'D1'},
-      {title:'T2', description: 'D2'}
-    ];
-    element = $compile(
+
+  describe('ngRepeatStart', function () {
+    it('should grow multi-node repeater', inject(function($compile, $rootScope) {
+      $rootScope.show = false;
+      $rootScope.books = [
+        {title:'T1', description: 'D1'},
+        {title:'T2', description: 'D2'}
+      ];
+      element = $compile(
+          '<div>' +
+              '<dt ng-repeat-start="book in books">{{book.title}}:</dt>' +
+              '<dd ng-repeat-end>{{book.description}};</dd>' +
+          '</div>')($rootScope);
+
+      $rootScope.$digest();
+      expect(element.text()).toEqual('T1:D1;T2:D2;');
+      $rootScope.books.push({title:'T3', description: 'D3'});
+      $rootScope.$digest();
+      expect(element.text()).toEqual('T1:D1;T2:D2;T3:D3;');
+    }));
+
+
+    it('should not clobber ng-if when updating collection', inject(function ($compile, $rootScope) {
+      $rootScope.values = [1, 2, 3];
+      $rootScope.showMe = true;
+
+      element = $compile(
         '<div>' +
-            '<dt ng-repeat-start="book in books">{{book.title}}:</dt>' +
-            '<dd ng-repeat-end>{{book.description}};</dd>' +
-        '</div>')($rootScope);
+          '<div ng-repeat-start="val in values">val:{{val}};</div>' +
+          '<div ng-if="showMe" ng-repeat-end>if:{{val}};</div>' +
+        '</div>'
+      )($rootScope);
 
-    $rootScope.$digest();
-    expect(element.text()).toEqual('T1:D1;T2:D2;');
-    $rootScope.books.push({title:'T3', description: 'D3'});
-    $rootScope.$digest();
-    expect(element.text()).toEqual('T1:D1;T2:D2;T3:D3;');
-  }));
+      $rootScope.$digest();
+      expect(element.find('div').length).toBe(6);
 
+      $rootScope.values.shift();
+      $rootScope.values.push(4);
 
+      $rootScope.$digest();
+      expect(element.find('div').length).toBe(6);
+      expect(element.text()).not.toContain('if:1;');
+    }));
+  });
 });
+
 
 describe('ngRepeat animations', function() {
   var body, element, $rootElement;
