@@ -156,15 +156,15 @@ describe('Binder', function() {
     $rootScope.items = items;
 
     $rootScope.$apply();
-    expect(element[0].childNodes.length - 1).toEqual(0);
+    expect(element[0].childNodes.length).toEqual(1);
 
     items.name = 'misko';
     $rootScope.$apply();
-    expect(element[0].childNodes.length - 1).toEqual(1);
+    expect(element[0].childNodes.length).toEqual(3);
 
     delete items.name;
     $rootScope.$apply();
-    expect(element[0].childNodes.length - 1).toEqual(0);
+    expect(element[0].childNodes.length).toEqual(1);
   }));
 
   it('IfTextBindingThrowsErrorDecorateTheSpan', function() {
@@ -231,13 +231,17 @@ describe('Binder', function() {
           '<div name="a" ng-repeat="m in model">'+
             '<!-- ngRepeat: i in m.item -->' +
             '<ul name="a1" ng-repeat="i in m.item"></ul>'+
+            '<!-- end ngRepeat: i in m.item -->' +
             '<ul name="a2" ng-repeat="i in m.item"></ul>'+
+            '<!-- end ngRepeat: i in m.item -->' +
           '</div>'+
           '<!-- end ngRepeat: m in model -->' +
           '<div name="b" ng-repeat="m in model">'+
             '<!-- ngRepeat: i in m.item -->' +
             '<ul name="b1" ng-repeat="i in m.item"></ul>'+
+            '<!-- end ngRepeat: i in m.item -->' +
             '<ul name="b2" ng-repeat="i in m.item"></ul>'+
+            '<!-- end ngRepeat: i in m.item -->' +
           '</div>' +
           '<!-- end ngRepeat: m in model -->' +
         '</div>');
@@ -316,8 +320,9 @@ describe('Binder', function() {
         '<div ng-repeat="i in [0,1]" ng-class-even="\'e\'" ng-class-odd="\'o\'"></div>' +
       '</div>')($rootScope);
     $rootScope.$apply();
+
     var d1 = jqLite(element[0].childNodes[1]);
-    var d2 = jqLite(element[0].childNodes[2]);
+    var d2 = jqLite(element[0].childNodes[3]);
     expect(d1.hasClass('o')).toBeTruthy();
     expect(d2.hasClass('e')).toBeTruthy();
     expect(sortedHtml(element)).toBe(

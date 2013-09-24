@@ -351,6 +351,8 @@ var ngRepeatDirective = ['$parse', '$animate', function($parse, $animate) {
             key = (collection === collectionKeys) ? index : collectionKeys[index];
             value = collection[key];
             block = nextBlockOrder[index];
+            var previousNode;
+            if (nextBlockOrder[index - 1]) previousNode = nextBlockOrder[index - 1].endNode;
 
             if (block.startNode) {
               // if we have already seen this object, then we need to reuse the
@@ -388,7 +390,7 @@ var ngRepeatDirective = ['$parse', '$animate', function($parse, $animate) {
                 $animate.enter(clone, null, jqLite(previousNode));
                 previousNode = clone;
                 block.scope = childScope;
-                block.startNode = clone[0];
+                block.startNode = previousNode && previousNode.endNode ? previousNode.endNode : clone[0];
                 block.elements = clone;
                 block.endNode = clone[clone.length - 1];
                 nextBlockMap[block.id] = block;
