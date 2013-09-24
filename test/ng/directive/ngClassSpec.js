@@ -165,8 +165,8 @@ describe('ngClass', function() {
   it('should ngClass odd/even', inject(function($rootScope, $compile) {
     element = $compile('<ul><li ng-repeat="i in [0,1]" class="existing" ng-class-odd="\'odd\'" ng-class-even="\'even\'"></li><ul>')($rootScope);
     $rootScope.$digest();
-    var e1 = jqLite(element[0].children[0]);
-    var e2 = jqLite(element[0].children[1]);
+    var e1 = jqLite(element[0].childNodes[1]);
+    var e2 = jqLite(element[0].childNodes[3]);
     expect(e1.hasClass('existing')).toBeTruthy();
     expect(e1.hasClass('odd')).toBeTruthy();
     expect(e2.hasClass('existing')).toBeTruthy();
@@ -180,8 +180,8 @@ describe('ngClass', function() {
       'ng-class-odd="\'odd\'" ng-class-even="\'even\'"></li>' +
       '<ul>')($rootScope);
     $rootScope.$apply();
-    var e1 = jqLite(element[0].children[0]);
-    var e2 = jqLite(element[0].children[1]);
+    var e1 = jqLite(element[0].childNodes[1]);
+    var e2 = jqLite(element[0].childNodes[3]);
 
     expect(e1.hasClass('plainClass')).toBeTruthy();
     expect(e1.hasClass('odd')).toBeTruthy();
@@ -198,8 +198,8 @@ describe('ngClass', function() {
       'ng-class-odd="[\'C\', \'D\']" ng-class-even="[\'E\', \'F\']"></li>' +
       '<ul>')($rootScope);
     $rootScope.$apply();
-    var e1 = jqLite(element[0].children[0]);
-    var e2 = jqLite(element[0].children[1]);
+    var e1 = jqLite(element[0].childNodes[1]);
+    var e2 = jqLite(element[0].childNodes[3]);
 
     expect(e1.hasClass('A')).toBeTruthy();
     expect(e1.hasClass('B')).toBeTruthy();
@@ -272,8 +272,8 @@ describe('ngClass', function() {
     $rootScope.items = ['a','a'];
     $rootScope.$digest();
 
-    var e1 = jqLite(element[0].children[0]);
-    var e2 = jqLite(element[0].children[1]);
+    var e1 = jqLite(element[0].childNodes[1]);
+    var e2 = jqLite(element[0].childNodes[3]);
 
     expect(e1.hasClass('odd')).toBeTruthy();
     expect(e1.hasClass('even')).toBeFalsy();
@@ -294,8 +294,8 @@ describe('ngClass', function() {
     $rootScope.items = ['b','a'];
     $rootScope.$digest();
 
-    var e1 = jqLite(element[0].children[0]);
-    var e2 = jqLite(element[0].children[1]);
+    var e1 = jqLite(element[0].childNodes[1]);
+    var e2 = jqLite(element[0].childNodes[3]);
 
     expect(e1.hasClass('odd')).toBeTruthy();
     expect(e1.hasClass('even')).toBeFalsy();
